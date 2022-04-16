@@ -4,6 +4,7 @@
 #include <vector>
 #include "SDL.h"
 #include "snake.h"
+#include "fieldObject.h"
 
 class Renderer {
  public:

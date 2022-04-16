@@ -41,7 +41,8 @@ void FieldObject::doThings()
 
     // init stop watch
     lastUpdate = std::chrono::system_clock::now();
-    while (true)
+    
+    while (mySnake->alive)
     {
         // sleep at every iteration to reduce CPU usage
         std::this_thread::sleep_for(std::chrono::milliseconds(1));

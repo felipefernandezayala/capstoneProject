@@ -5,7 +5,7 @@
 #include <thread>
 #include <mutex>
 #include "SDL.h"
-#include "fieldObject.h"
+
 
 class Snake : public std::enable_shared_from_this<Snake>
 {

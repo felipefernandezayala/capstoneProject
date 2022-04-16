@@ -7,6 +7,7 @@
 #include "renderer.h"
 #include <vector>
 #include "snake.h"
+#include "fieldObject.h"
 
 class Game {
  public:

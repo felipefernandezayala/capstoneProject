@@ -8,6 +8,7 @@
 #include <iostream>
 #include <chrono>
 #include "SDL.h"
+#include "snake.h"
 
 enum ObjectType
 {
@@ -47,6 +48,11 @@ public:
     // miscellaneous
     std::shared_ptr<FieldObject> get_shared_this() { return shared_from_this(); }
 
+    void setSnake(std::shared_ptr<Snake> &theSnake) 
+    { 
+        mySnake = theSnake; 
+    };
+
 protected:
     ObjectType _type;                 // identifies the class type
     int _id;                          // every object has its own unique id
@@ -62,6 +68,8 @@ private:
     static int _idCnt; // global variable for counting object ids
     int grid_width;
     int grid_height;
+
+    std::shared_ptr<Snake> mySnake;
 };
 
 

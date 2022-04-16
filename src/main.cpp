@@ -21,21 +21,23 @@ int main()
     std::vector<std::shared_ptr<FieldObject>> myObjects;
     int nObjects=4;
 
+    // create snake
+    std::shared_ptr<Snake> mySnake(new Snake(kGridWidth, kGridHeight));
+
     // add independent object
     for (int newObj = 0; newObj < nObjects; newObj++)
     {
         myObjects.push_back(std::make_shared<FieldObject>(kGridWidth, kGridHeight));
-        //myEggs.at(newEgg)->setCurrentStreet(myEggs.at(newEgg));
+        myObjects.at(newObj)->setSnake(mySnake);
     }
 
-    /*
+    
     // simulate objects
     std::for_each(myObjects.begin(), myObjects.end(), [](std::shared_ptr<FieldObject> &thisObject) {
         thisObject->simulate();
     });
-    */
-    // create snake
-    std::shared_ptr<Snake> mySnake(new Snake(kGridWidth, kGridHeight));
+    
+    
     
     Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
     Controller controller;
