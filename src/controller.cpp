@@ -9,7 +9,7 @@ void Controller::ChangeDirection(std::shared_ptr<Snake> &snake, Snake::Direction
   return;
 }
 
-void Controller::HandleInput(bool &running, Snake &mySnake, std::shared_ptr<Snake> &snake) const {
+void Controller::HandleInput(bool &running, std::shared_ptr<Snake> &snake) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {
     if (e.type == SDL_QUIT) {

@@ -2,6 +2,8 @@
 #include <cmath>
 #include <iostream>
 
+std::mutex Snake::_mtx;
+
 
 Snake::Snake()
 {
@@ -57,6 +59,11 @@ void Snake::UpdateHead()
   head_y = fmod(head_y + grid_height, grid_height);
 }
 
+void Snake::checkIsAliveWithOwnBody(SDL_Point const &myCell)
+{
+  checkIsAlive(myCell, body);
+}
+
 void Snake::checkIsAlive(SDL_Point const &current_head_cell, std::vector<SDL_Point> const &vecItems)
 {
   for (auto const &cellOfItems : vecItems)
@@ -85,7 +92,16 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell, 
   }
 
   // Check if the snake has died againts its own body
-  checkIsAlive(current_head_cell, body);
+  checkIsAliveWithOwnBody(current_head_cell);
+
+  // print id of the current thread
+    if(!alive)
+    {
+        std::unique_lock<std::mutex> lck(_mtx);
+        std::cout << "Snake ate itself!! #" << std::this_thread::get_id() << std::endl;
+        std::cout << "Game Over: Snake is Dead" << std::endl;
+        lck.unlock();
+    }
 
   // Check if the snake has died againts due to collide to items
   checkIsAlive(current_head_cell, items);

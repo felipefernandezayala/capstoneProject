@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <iostream>
 #include <chrono>
+#include <future>
+#include <queue>
 #include "SDL.h"
 #include "snake.h"
 
@@ -39,10 +41,11 @@ public:
     int getID() { return _id; }
     ObjectType getType() { return _type; }
 
-    float speed{0.f};
+    float speed{1.f};
 
     // typical behaviour methods
     void simulate();
+    void isSnakeCaught();
     SDL_Point body;      // object body
     
     // miscellaneous
@@ -53,18 +56,27 @@ public:
         mySnake = theSnake; 
     };
 
+    // from c++ example
+    std::mutex m;
+    std::condition_variable cv;
+    std::string data;
+    bool ready;
+    bool processed;
+
+
 protected:
     ObjectType _type;                 // identifies the class type
     int _id;                          // every object has its own unique id
     
     std::vector<std::thread> threads; // holds all threads that have been launched within this object
     static std::mutex _mtx;           // mutex shared by all objects for protecting cout 
-
-    
+    std::vector<std::promise<void>> _promises; // list of associated promises
+    std::condition_variable _cond; //condition variable    
     
 private:
     // typical behaviour methods
     void doThings();
+    void moveAround();
     static int _idCnt; // global variable for counting object ids
     int grid_width;
     int grid_height;

@@ -3,12 +3,11 @@
 #include "SDL.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height),
-      engine(dev()),
+    : engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1))
 {
-  
+  areFieldObjectsLoaded = false;
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -26,9 +25,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     frame_start = SDL_GetTicks();
 
     // Input, Update, Render - the main game loop.
-    controller.HandleInput(running, snake, mySnake);
+    controller.HandleInput(running, mySnake);
     Update();
-    renderer.Render(snake, food, items, _objectsInTheField, mySnake);
+    renderer.Render(food, items, _objectsInTheField, mySnake);
 
     frame_end = SDL_GetTicks();
 
@@ -53,6 +52,8 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
+
+  mySnake->alive = false; // kill snake so the other field object threads stop
 }
 
 void Game::PlaceFood()
@@ -93,12 +94,38 @@ void Game::PlaceItems()
   }
 }
 
+
+void Game::updateFieldObjects()
+  {
+   // Make This Thread sleep for 1 milisecond
+   std::this_thread::sleep_for(std::chrono::milliseconds(1));
+   //std::cout<<"Loading Data from Field Objects"<<std::endl;
+   // Lock The Data structure
+   std::lock_guard<std::mutex> guard(m_mutex);
+
+   std::for_each(_objectsInTheField.begin(), _objectsInTheField.end(), [](std::shared_ptr<FieldObject> &thisObject) {
+        thisObject->isSnakeCaught();
+    });
+
+   // Set the flag to true, means data is loaded
+   areFieldObjectsLoaded = true;
+   // Notify the condition variable
+   m_condVar.notify_one();
+  }
+
 void Game::Update()
 {
   if (!mySnake->alive)
+  {
     return;
+  }
 
-  mySnake->Update(items);
+  //using condition variable to check if field objects are loaded before we continue updating our snake
+  areFieldObjectsLoaded = false;
+  std::thread thread_1(&Game::updateSnake,this);
+  std::thread thread_2(&Game::updateFieldObjects,this);
+  thread_2.join();
+  thread_1.join();
 
   int new_x = static_cast<int>(mySnake->head_x);
   int new_y = static_cast<int>(mySnake->head_y);

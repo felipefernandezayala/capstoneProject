@@ -43,7 +43,7 @@ Renderer::~Renderer()
   SDL_Quit();
 }
 
-void Renderer::Render(Snake const snake, SDL_Point const &food, std::vector<SDL_Point> const &items, std::vector<std::shared_ptr<FieldObject>> const &theObjects, std::shared_ptr<Snake> const &mySnake)
+void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items, std::vector<std::shared_ptr<FieldObject>> const &theObjects, std::shared_ptr<Snake> const &mySnake)
 {
   SDL_Rect block;
   block.w = screen_width / grid_width;

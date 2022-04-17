@@ -65,6 +65,8 @@ public:
   // miscellaneous
   std::shared_ptr<Snake> get_shared_this() { return shared_from_this(); }
 
+  void checkIsAliveWithOwnBody(SDL_Point const &myCell);
+  static std::mutex _mtx;           // mutex shared by all objects for protecting cout 
 private:
   void UpdateHead();
   void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell, std::vector<SDL_Point> const &items);
