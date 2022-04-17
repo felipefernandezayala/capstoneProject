@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <future>
 #include "SDL.h"
 
 
@@ -50,6 +51,7 @@ public:
   };
 
   void Update(std::vector<SDL_Point> const &items);
+  void checkBody(std::promise<bool> &&prms, const int &x,const  int &y);
   void GrowBody();
   bool SnakeCell(int x, int y);
 
@@ -71,6 +73,7 @@ private:
   void UpdateHead();
   void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell, std::vector<SDL_Point> const &items);
   void checkIsAlive(SDL_Point const &current_head_cell, std::vector<SDL_Point> const &vecItems);
+  
 
   bool growing{false};
   int grid_width;

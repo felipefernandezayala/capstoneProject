@@ -95,6 +95,7 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell, 
   checkIsAliveWithOwnBody(current_head_cell);
 
   // print id of the current thread
+  /*
     if(!alive)
     {
         std::unique_lock<std::mutex> lck(_mtx);
@@ -102,22 +103,44 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell, 
         std::cout << "Game Over: Snake is Dead" << std::endl;
         lck.unlock();
     }
-
+  */
   // Check if the snake has died againts due to collide to items
   checkIsAlive(current_head_cell, items);
 }
 
 void Snake::GrowBody() { growing = true; }
 
+
+void Snake::checkBody(std::promise<bool> &&prms, const int &x,const  int &y)
+{
+  for (auto const &item : body)
+  {
+    if (x == item.x && y == item.y)
+    {
+      prms.set_value(true);
+      break;
+    }
+  }
+  prms.set_value(false);
+}
+
 // Inefficient method to check if cell is occupied by snake.
 bool Snake::SnakeCell(int x, int y)
 {
-  
+  // create promise and future
+  std::promise<bool> prms;
+  std::future<bool> ftr = prms.get_future();
+  // start thread and pass promise as argument
+  std::thread t(&Snake::checkBody, this, std::move(prms), x, y);
+
+  bool status = false;
+
   if (x == static_cast<int>(head_x) && y == static_cast<int>(head_y))
   {
-    return true;
+    status = true;
   }
   
+  /*
   for (auto const &item : body)
   {
     if (x == item.x && y == item.y)
@@ -125,6 +148,9 @@ bool Snake::SnakeCell(int x, int y)
       return true;
     }
   }
+  */
+ status = status||ftr.get();
+ t.join();
   
-  return false;
+  return status;
 }
