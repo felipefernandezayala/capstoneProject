@@ -37,13 +37,17 @@ void FieldObject::moveAround()
     float deltaY = mySnake->head_y - static_cast<float>(objectBody.at(0).y);
     float deltaZ = sqrt(deltaX*deltaX + deltaY*deltaY);
 
-    objectBody.at(0).x += static_cast<int>(2.*deltaX/deltaZ);
-    objectBody.at(0).y += static_cast<int>(2.*deltaY/deltaZ);
+    int dx = static_cast<int>(2.*deltaX/deltaZ);
+    int dy = static_cast<int>(2.*deltaY/deltaZ);
 
-    // Wrap the Snake around to the beginning if going off of the screen.
-    objectBody.at(0).x = fmod(objectBody.at(0).x + grid_width, grid_width);
-    objectBody.at(0).y = fmod(objectBody.at(0).y + grid_height, grid_height);
-
+    // Wrap the Object around to the beginning if going off of the screen.
+    for (auto &cell: objectBody)
+    {
+        cell.x += dx;
+        cell.y += dy;
+        cell.x = fmod(cell.x + grid_width, grid_width);
+        cell.y = fmod(cell.y + grid_height, grid_height);
+    }
 }
 
 void FieldObject::isSnakeCaught()

@@ -54,21 +54,13 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
   SDL_RenderClear(sdl_renderer);
 
   // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
   block.x = food.x * block.w;
   block.y = food.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
 
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0xCC, 0x00, 0xFF);
-  for (auto const &myFood : items)
-  {
-    block.x = myFood.x * block.w;
-    block.y = myFood.y * block.h;
-    SDL_RenderFillRect(sdl_renderer, &block);
-  }
-
   // render all objects
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0xCC, 0x00, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
   for (auto const &myObject : theObjects)
   {
     for (auto const & cell : myObject->objectBody)
@@ -80,7 +72,7 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
   }
 
   // Render snake's body
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0xCC, 0x00, 0xFF);
   for (SDL_Point const &point : mySnake->body)
   {
     block.x = point.x * block.w;

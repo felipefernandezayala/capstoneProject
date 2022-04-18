@@ -31,9 +31,15 @@ public:
         grid_height(grid_heightV){
             _type = ObjectType::objectEgg; // first they appear as eggs
             _id = _idCnt++;
-            objectBody.resize(1);
-            objectBody.at(0).x = _id*grid_widthV/10;
-            objectBody.at(0).y = _id*grid_heightV/10;
+            objectBody.resize(4);
+            objectBody.at(0).x = _id*grid_widthV/7;
+            objectBody.at(0).y = _id*grid_heightV/7;
+            objectBody.at(1).x = objectBody.at(0).x-1;
+            objectBody.at(1).y = objectBody.at(0).y-1;
+            objectBody.at(2).x = objectBody.at(0).x-1;
+            objectBody.at(2).y = objectBody.at(0).y;
+            objectBody.at(3).x = objectBody.at(0).x;
+            objectBody.at(3).y = objectBody.at(0).y-1;
             
         };
     ~FieldObject();
