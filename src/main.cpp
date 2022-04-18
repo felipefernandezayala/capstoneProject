@@ -35,8 +35,6 @@ int main()
     std::for_each(myObjects.begin(), myObjects.end(), [](std::shared_ptr<FieldObject> &thisObject) {
         thisObject->simulate();
     });
-
-     
        
     Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
     Controller controller;
@@ -48,7 +46,6 @@ int main()
     std::cout << "Score: " << game.GetScore() << "\n";
     std::cout << "Size: " << game.GetSize() << "\n";
     
-
     return 0;
 }
 

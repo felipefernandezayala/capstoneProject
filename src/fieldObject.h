@@ -31,8 +31,9 @@ public:
         grid_height(grid_heightV){
             _type = ObjectType::objectEgg; // first they appear as eggs
             _id = _idCnt++;
-            body.x = _id*grid_widthV/5;
-            body.y = grid_heightV/4;
+            objectBody.resize(1);
+            objectBody.at(0).x = _id*grid_widthV/10;
+            objectBody.at(0).y = _id*grid_heightV/10;
             
         };
     ~FieldObject();
@@ -46,7 +47,7 @@ public:
     // typical behaviour methods
     void simulate();
     void isSnakeCaught();
-    SDL_Point body;      // object body
+    std::vector<SDL_Point> objectBody;
     
     // miscellaneous
     std::shared_ptr<FieldObject> get_shared_this() { return shared_from_this(); }
