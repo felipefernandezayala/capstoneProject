@@ -52,6 +52,8 @@ public:
 
   void Update(std::vector<SDL_Point> const &items);
   void checkBody(std::promise<bool> &&prms, const int &x,const  int &y);
+  bool checkFirstHalfBody(const int &x,const  int &y);
+  void checkLastHalfBody(std::promise<bool> &&prms, const int &x,const  int &y);
   void GrowBody();
   bool SnakeCell(int x, int y);
 

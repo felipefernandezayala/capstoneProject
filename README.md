@@ -48,5 +48,6 @@ This work is licensed under a
 ## Rubric points addressed on the project
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.
+  * Promise and future is used in Snake::SnakeCell function where a thread search in the last half of the snake body while the main thread searches in the first half and get the future with the boolean information.
   * A condition variable is used to communicate between two threads specifically that run Game::updateSnake and Game::updateFieldObjects in Game::Update to signal that all field Objects are updated before we update our Snake.
-  
+

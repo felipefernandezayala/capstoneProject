@@ -124,6 +124,31 @@ void Snake::checkBody(std::promise<bool> &&prms, const int &x,const  int &y)
   prms.set_value(false);
 }
 
+bool Snake::checkFirstHalfBody(const int &x,const  int &y)
+{
+  for (long unsigned int i=0;i<(body.size()/2);i++)
+  {
+    if (x == body.at(i).x && y == body.at(i).y)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+void Snake::checkLastHalfBody(std::promise<bool> &&prms, const int &x,const  int &y)
+{
+  for (long unsigned int i=(body.size()/2);i<body.size();i++)
+  {
+    if (x == body.at(i).x && y == body.at(i).y)
+    {
+      prms.set_value(true);
+      break;
+    }
+  }
+  prms.set_value(false);
+}
+
 // Inefficient method to check if cell is occupied by snake.
 bool Snake::SnakeCell(int x, int y)
 {
@@ -131,24 +156,15 @@ bool Snake::SnakeCell(int x, int y)
   std::promise<bool> prms;
   std::future<bool> ftr = prms.get_future();
   // start thread and pass promise as argument
-  std::thread t(&Snake::checkBody, this, std::move(prms), x, y);
+  std::thread t(&Snake::checkLastHalfBody, this, std::move(prms), x, y);
 
-  bool status = false;
+  bool status = checkFirstHalfBody(x,y);
 
   if (x == static_cast<int>(head_x) && y == static_cast<int>(head_y))
   {
     status = true;
   }
-  
-  /*
-  for (auto const &item : body)
-  {
-    if (x == item.x && y == item.y)
-    {
-      return true;
-    }
-  }
-  */
+
  status = status||ftr.get();
  t.join();
   

@@ -51,6 +51,9 @@ void FieldObject::isSnakeCaught()
     // Check if the snake has died againts chicken
     mySnake->checkIsAliveWithOwnBody(body);
 
+    // check with head
+    if(static_cast<int>(mySnake->head_x)==body.x && static_cast<int>(mySnake->head_y)==body.y)
+        mySnake->alive = false;
     /*
     // print id of the current thread
     std::unique_lock<std::mutex> lck(_mtx);
