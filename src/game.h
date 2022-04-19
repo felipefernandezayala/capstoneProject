@@ -7,6 +7,7 @@
 #include <functional>
 #include <mutex>
 #include <condition_variable>
+#include <fstream>
 using namespace std::placeholders;
 
 #include "SDL.h"
@@ -56,6 +57,7 @@ public:
     mySnake = theSnake;
     PlaceFood();
   };
+  void writeScoresToFile();
 
 private:
   SDL_Point food;

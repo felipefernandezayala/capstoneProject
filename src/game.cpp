@@ -116,6 +116,16 @@ void Game::updateFieldObjects()
    m_condVar.notify_one();
   }
 
+void Game::writeScoresToFile()
+{
+  std::ofstream myfile;
+  myfile.open ("score.txt");
+  myfile << "Game has terminated successfully!\n";
+  myfile << "Score: " << GetScore() << "\n";
+  myfile << "Size: " << GetSize() << "\n";
+  myfile.close();
+}
+
 void Game::Update()
 {
   if (!mySnake->alive)

@@ -1,14 +1,10 @@
 #include "fieldObject.h"
 
-// init static variable
-int FieldObject::_idCnt = 0;
-
 std::mutex FieldObject::_mtx;
 
 FieldObject::FieldObject()
 {
     _type = ObjectType::objectChicken; // all chickens otherwise stated
-    _id = _idCnt++;
 }
 
 FieldObject::~FieldObject()

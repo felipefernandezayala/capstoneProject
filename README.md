@@ -4,7 +4,7 @@ This repo contains the Capstone project in the [Udacity C++ Nanodegree Program](
 <img src="snakeChickens.gif"/>
 
 ## Description of the game
-In this game, a Chicken and a Rooster are created in addition the Snake. 
+In this game, a Chicken (Yellow square) and a Rooster (Red square) are created in addition the Snake. 
 
 Your goal as the Snake is to eat as many Eggs as posible.
 
@@ -60,6 +60,18 @@ This work is licensed under a
   * This project is based on the Snake game example and is added several features.
   * Classes given: Game, Renderer, Controller, Snake. Class added: FieldObject.
   * Rubric points is added here 
+* Compiling and running correctly
+* Loops, Functions, I/O
+  * Many functions and structures are created
+  * Project writes the score obtained to a file named scores.txt, cf. Game::writeScoresToFile
+  * Project accepts user input from keyboard to play game and move snake
+* Object Oriented Programming
+  * Object oriented programming techniques are used. FieldObject is added as a class.
+  * Appropiate classes identifiers are used: public, private, protected.
+  * member list is used
+  * names specify functions
+  * 
+
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.
   * Promise and future is used in Snake::SnakeCell function where a thread search in the last half of the snake body while the main thread searches in the first half and get the future with the boolean information.

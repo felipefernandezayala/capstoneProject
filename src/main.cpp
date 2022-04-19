@@ -1,9 +1,9 @@
 #include <iostream>
-#include <iostream>
 #include <thread>
 #include <queue>
 #include <future>
 #include <mutex>
+
 
 #include "controller.h"
 #include "game.h"
@@ -27,7 +27,8 @@ int main()
     // add independent object
     for (int newObj = 0; newObj < nObjects; newObj++)
     {
-        myObjects.push_back(std::make_shared<FieldObject>(kGridWidth, kGridHeight));
+        myObjects.push_back(std::make_shared<FieldObject>());
+        myObjects.at(newObj)->initialize(kGridWidth, kGridHeight);
         myObjects.at(newObj)->setSnake(mySnake);
         if (newObj%2 == 1)
             myObjects.at(newObj)->makeItRooster();
@@ -47,6 +48,8 @@ int main()
     std::cout << "Game has terminated successfully!\n";
     std::cout << "Score: " << game.GetScore() << "\n";
     std::cout << "Size: " << game.GetSize() << "\n";
+    game.writeScoresToFile();
+    
     
     return 0;
 }

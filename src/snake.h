@@ -6,7 +6,7 @@
 #include <mutex>
 #include <future>
 #include "SDL.h"
-
+#include "generalObject.h"
 
 class Snake : public std::enable_shared_from_this<Snake>
 {
@@ -25,17 +25,16 @@ public:
         head_y(grid_heightV / 2),
         grid_width(grid_widthV),
         grid_height(grid_heightV){};
-  
+
   void initialize(int grid_widthV, int grid_heightV)
   {
     head_x = grid_widthV / 2;
     head_y = grid_heightV / 2;
     grid_width = grid_widthV;
-    grid_height =grid_heightV;
-
+    grid_height = grid_heightV;
   };
-  
-  Snake & operator=(Snake const &otherSnake)
+
+  Snake &operator=(Snake const &otherSnake)
   {
     speed = otherSnake.speed;
     size = otherSnake.size;
@@ -51,9 +50,9 @@ public:
   };
 
   void Update(std::vector<SDL_Point> const &items);
-  void checkBody(std::promise<bool> &&prms, const int &x,const  int &y);
-  bool checkFirstHalfBody(const int &x,const  int &y);
-  void checkLastHalfBody(std::promise<bool> &&prms, const int &x,const  int &y);
+  void checkBody(std::promise<bool> &&prms, const int &x, const int &y);
+  bool checkFirstHalfBody(const int &x, const int &y);
+  void checkLastHalfBody(std::promise<bool> &&prms, const int &x, const int &y);
   void GrowBody();
   bool SnakeCell(int x, int y);
 
@@ -70,13 +69,11 @@ public:
   std::shared_ptr<Snake> get_shared_this() { return shared_from_this(); }
 
   void checkIsAliveWithOwnBody(SDL_Point const &myCell);
-  static std::mutex _mtx;           // mutex shared by all objects for protecting cout 
+  static std::mutex _mtx; // mutex shared by all objects for protecting cout
 private:
   void UpdateHead();
   void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell, std::vector<SDL_Point> const &items);
   void checkIsAlive(SDL_Point const &current_head_cell, std::vector<SDL_Point> const &vecItems);
-  
-
   bool growing{false};
   int grid_width;
   int grid_height;
