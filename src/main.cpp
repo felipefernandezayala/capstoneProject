@@ -29,6 +29,8 @@ int main()
     {
         myObjects.push_back(std::make_shared<FieldObject>(kGridWidth, kGridHeight));
         myObjects.at(newObj)->setSnake(mySnake);
+        if (newObj%2 == 1)
+            myObjects.at(newObj)->makeItRooster();
     }
     
     // simulate objects

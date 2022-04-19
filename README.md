@@ -1,12 +1,15 @@
-# CPPND: Capstone Snake Game Example
-
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+# CPPND: Capstone Snake against the Chickens
+This repo contains the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
 <img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
-
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+In this game, a Chicken and a Rooster are created in addition the Snake. 
+Your goal as the Snake is to eat as many Eggs as posible.
+The role of the Chicken is to go and save the Egg however if the Snake is around it will try to catch it.
+The role of the Rooster is to chase the Snake no matter what.
+One Egg appear anywhere after the Snake eats the previous one. 
+The Snake is faster than both, the Chicken and the Snake, however they are perseverant and will protect the Eggs.
+Have Fun!!!
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -33,7 +36,6 @@ In this project, you can build your own C++ application or extend this Snake gam
 
 ## CC Attribution-ShareAlike 4.0 International
 
-
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
 
 This work is licensed under a
@@ -46,8 +48,14 @@ This work is licensed under a
 [cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
 
 ## Rubric points addressed on the project
+* ReadMe
+  *Readme with instructions is included above
+  *This project is based on the Snake game example and is added several features.
+  *Classes given: Game, Renderer, Controller, Snake. Class added: FieldObject.
+  *Rubric points is added here 
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.
   * Promise and future is used in Snake::SnakeCell function where a thread search in the last half of the snake body while the main thread searches in the first half and get the future with the boolean information.
+  * mutex are used in FieldObject::doThings() and FieldObject::~FieldObject() to notify the creation and destruction of our Chickens or Roosters.
   * A condition variable is used to communicate between two threads specifically that run Game::updateSnake and Game::updateFieldObjects in Game::Update to signal that all field Objects are updated before we update our Snake.
 

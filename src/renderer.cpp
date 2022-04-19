@@ -53,16 +53,18 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer);
 
-  // Render food
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  block.x = food.x * block.w;
-  block.y = food.y * block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
-
+  
   // render all objects
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
   for (auto const &myObject : theObjects)
   {
+    if(myObject->isChicken())
+    {
+      SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF); //yellow
+    }
+    else
+    {
+      SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF); //red
+    }
     for (auto const & cell : myObject->objectBody)
     {
       block.x = cell.x * block.w;
@@ -70,6 +72,12 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
       SDL_RenderFillRect(sdl_renderer, &block);
     }
   }
+
+  // Render food
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  block.x = food.x * block.w;
+  block.y = food.y * block.h;
+  SDL_RenderFillRect(sdl_renderer, &block);
 
   // Render snake's body
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0xCC, 0x00, 0xFF);

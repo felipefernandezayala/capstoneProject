@@ -9,15 +9,14 @@
 #include <chrono>
 #include <future>
 #include <queue>
+#include <math.h> 
 #include "SDL.h"
 #include "snake.h"
 
 enum ObjectType
 {
     noObject,
-    objectSnake,
-    objectEgg,
-    objectBaby,
+    objectRooster,
     objectChicken,
 };
 
@@ -29,7 +28,7 @@ public:
     FieldObject(int grid_widthV, int grid_heightV)
       : grid_width(grid_widthV),
         grid_height(grid_heightV){
-            _type = ObjectType::objectEgg; // first they appear as eggs
+            _type = ObjectType::objectChicken; // first they appear as eggs
             _id = _idCnt++;
             objectBody.resize(4);
             objectBody.at(0).x = _id*grid_widthV/7;
@@ -40,6 +39,9 @@ public:
             objectBody.at(2).y = objectBody.at(0).y;
             objectBody.at(3).x = objectBody.at(0).x;
             objectBody.at(3).y = objectBody.at(0).y-1;
+
+            egg.x = grid_widthV/2;
+            egg.y = grid_heightV/2;
             
         };
     ~FieldObject();
@@ -47,12 +49,14 @@ public:
     // getter and setter
     int getID() { return _id; }
     ObjectType getType() { return _type; }
-
-    float speed{1.f};
+ 
+    float speed{.02f};
 
     // typical behaviour methods
     void simulate();
     void isSnakeCaught();
+    void makeItRooster(){_type = ObjectType::objectRooster;};
+    bool isChicken(){return _type==ObjectType::objectChicken;}
     std::vector<SDL_Point> objectBody;
     
     // miscellaneous
@@ -70,6 +74,8 @@ public:
     bool ready;
     bool processed;
 
+    void whereIsEgg(SDL_Point &eggLoc);
+
 
 protected:
     ObjectType _type;                 // identifies the class type
@@ -84,11 +90,15 @@ private:
     // typical behaviour methods
     void doThings();
     void moveAround();
+    void chaseSnake();
     static int _idCnt; // global variable for counting object ids
     int grid_width;
     int grid_height;
+    SDL_Point egg;
 
     std::shared_ptr<Snake> mySnake;
+
+    
 };
 
 

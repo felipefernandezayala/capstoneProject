@@ -103,9 +103,12 @@ void Game::updateFieldObjects()
    // Lock The Data structure
    std::lock_guard<std::mutex> guard(m_mutex);
 
-   std::for_each(_objectsInTheField.begin(), _objectsInTheField.end(), [](std::shared_ptr<FieldObject> &thisObject) {
+   std::for_each(_objectsInTheField.begin(), _objectsInTheField.end(), [&](std::shared_ptr<FieldObject> &thisObject) {
         thisObject->isSnakeCaught();
+        thisObject->whereIsEgg(food);
     });
+
+    
 
    // Set the flag to true, means data is loaded
    areFieldObjectsLoaded = true;
