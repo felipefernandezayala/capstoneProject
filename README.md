@@ -1,14 +1,21 @@
-# CPPND: Capstone Snake against the Chickens
+# CPPND: Capstone based on Snake Game example: Snake vs Chickens
 This repo contains the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
 <img src="snake_game.gif"/>
 
+## Description of the game
 In this game, a Chicken and a Rooster are created in addition the Snake. 
+
 Your goal as the Snake is to eat as many Eggs as posible.
+
 The role of the Chicken is to go and save the Egg however if the Snake is around it will try to catch it.
+
 The role of the Rooster is to chase the Snake no matter what.
+
 One Egg appear anywhere after the Snake eats the previous one. 
+
 The Snake is faster than both, the Chicken and the Snake, however they are perseverant and will protect the Eggs.
+
 Have Fun!!!
 
 ## Dependencies for Running Locally
@@ -49,10 +56,10 @@ This work is licensed under a
 
 ## Rubric points addressed on the project
 * ReadMe
-  *Readme with instructions is included above
-  *This project is based on the Snake game example and is added several features.
-  *Classes given: Game, Renderer, Controller, Snake. Class added: FieldObject.
-  *Rubric points is added here 
+  * Readme with instructions is included above
+  * This project is based on the Snake game example and is added several features.
+  * Classes given: Game, Renderer, Controller, Snake. Class added: FieldObject.
+  * Rubric points is added here 
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.
   * Promise and future is used in Snake::SnakeCell function where a thread search in the last half of the snake body while the main thread searches in the first half and get the future with the boolean information.
