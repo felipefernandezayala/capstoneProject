@@ -1,7 +1,7 @@
-# CPPND: Capstone based on Snake Game example: Snake vs Chickens
+# CPPND: Capstone based on Snake Game example - Snake vs Chickens
 This repo contains the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
-<img src="snake_game.gif"/>
+<img src="snakeChickens.gif"/>
 
 ## Description of the game
 In this game, a Chicken and a Rooster are created in addition the Snake. 
