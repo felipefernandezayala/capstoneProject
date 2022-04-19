@@ -13,7 +13,6 @@ Snake::Snake()
   grid_height =0;
 }
 
-
 void Snake::Update(std::vector<SDL_Point> const &items)
 {
   SDL_Point prev_cell{

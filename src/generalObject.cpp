@@ -25,8 +25,3 @@ void GeneralObject::wrapAroundGrid(SDL_Point & cell)
     cell.y = fmod(cell.y + getGridHeight(), getGridHeight());
 }
 
-void GeneralObject::wrapAroundGrid(int & x, int & y)
-{
-    x = fmod(x + getGridWidth(),  getGridWidth());
-    y = fmod(y + getGridHeight(), getGridHeight());
-}

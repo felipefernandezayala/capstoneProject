@@ -43,7 +43,7 @@ FieldObject::~FieldObject()
 void FieldObject::simulate()
 {
      // launch drive function in a thread
-    threads.emplace_back(std::thread(&FieldObject::doThings, this));
+    threads.emplace_back(std::thread(&FieldObject::eternalCycle, this));
     
 }
 
@@ -123,7 +123,7 @@ void FieldObject::whereIsEgg(SDL_Point &eggLoc)
 }
 
 // virtual function which is executed in a thread
-void FieldObject::doThings()
+void FieldObject::eternalCycle()
 {
     // print id of the current thread
     std::unique_lock<std::mutex> lck(_mtx);
@@ -159,11 +159,9 @@ void FieldObject::doThings()
                 // Rooster
                 chaseSnake();
             }
-
-
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();
-            
+
         }
     } // eof simulation loop
 }

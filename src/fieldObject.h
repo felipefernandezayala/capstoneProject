@@ -37,7 +37,7 @@ protected:
     std::condition_variable _cond;             // condition variable
 private:
     // typical behaviour methods
-    void doThings();
+    void eternalCycle();
     void saveEgg();
     void chaseSnake();
     // variables needed

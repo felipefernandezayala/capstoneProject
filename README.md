@@ -73,8 +73,10 @@ This work is licensed under a
   * names specify functions
   * Encapsulation. State is accesed with member functions set, get, etc
   * Inheritance is taken place in FieldObject and parent GeneralObject.
-  * Overload takes place in GeneralObject::wrapAroundGrid(SDL_Point & cell) and GeneralObject::wrapAroundGrid(int & x, int & y) both functions do the same thing and are general just in case.
-  * Virtual class
+  * Overload takes place in GeneralObject::wrapAroundGrid(SDL_Point & cell) and GeneralObject::wrapAroundGrid(myTemplateType & x, myTemplateType & y) both functions do the same thing and are general just in case.
+  * Virtual class member function simulate() is defined in parent class GeneralObject and implemented in children differently
+  * Template is used in GeneralObject::wrapAroundGrid(myTemplateType & x, myTemplateType & y) just in case we need a more general wrap around function, for example if we want to use float as in snake head.
+  
 
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.

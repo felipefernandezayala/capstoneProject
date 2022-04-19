@@ -108,9 +108,7 @@ void Game::updateFieldObjects()
         thisObject->whereIsEgg(food);
     });
 
-    
-
-   // Set the flag to true, means data is loaded
+    // Set the flag to true, means data is loaded
    areFieldObjectsLoaded = true;
    // Notify the condition variable
    m_condVar.notify_one();
