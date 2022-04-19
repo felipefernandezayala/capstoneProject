@@ -38,9 +38,8 @@ protected:
 private:
     // typical behaviour methods
     void doThings();
-    void moveAround();
+    void saveEgg();
     void chaseSnake();
-    void wrapAroundGrid(SDL_Point & cell);
     // variables needed
     SDL_Point egg;
     std::shared_ptr<Snake> mySnake;

@@ -66,11 +66,15 @@ This work is licensed under a
   * Project writes the score obtained to a file named scores.txt, cf. Game::writeScoresToFile
   * Project accepts user input from keyboard to play game and move snake
 * Object Oriented Programming
-  * Object oriented programming techniques are used. FieldObject is added as a class.
+  * Object oriented programming techniques are used. FieldObject and parent GeneralObject classes are added.
   * Appropiate classes identifiers are used: public, private, protected.
+  * set and get functions are used for member data
   * member list is used
   * names specify functions
-  * 
+  * Encapsulation. State is accesed with member functions set, get, etc
+  * Inheritance is taken place in FieldObject and parent GeneralObject.
+  * Overload takes place in GeneralObject::wrapAroundGrid(SDL_Point & cell) and GeneralObject::wrapAroundGrid(int & x, int & y) both functions do the same thing and are general just in case.
+  * Virtual class
 
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.

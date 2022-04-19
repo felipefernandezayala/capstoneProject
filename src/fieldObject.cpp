@@ -47,13 +47,7 @@ void FieldObject::simulate()
     
 }
 
-void FieldObject::wrapAroundGrid(SDL_Point & cell)
-{
-    cell.x = fmod(cell.x + getGridWidth(),  getGridWidth());
-    cell.y = fmod(cell.y + getGridHeight(), getGridHeight());
-}
-
-void FieldObject::moveAround()
+void FieldObject::saveEgg()
 {
     // move around the egg
     float deltaX = egg.x - static_cast<float>(objectBody.at(0).x);
@@ -156,9 +150,9 @@ void FieldObject::doThings()
         long timeSinceLastUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - lastUpdate).count();
         if (timeSinceLastUpdate >= cycleDuration)
         {            
-            if (getType() == ObjectType::objectChicken)
+            if (isChicken())
             {
-                moveAround();
+                saveEgg();
             }
             else
             {
@@ -166,9 +160,6 @@ void FieldObject::doThings()
                 chaseSnake();
             }
 
-            //lck.lock();
-            //std::cout << "Field Object #" << _id << ":: move around: thread id = " << std::this_thread::get_id() << std::endl;
-            //lck.unlock();
 
             // reset stop watch for next cycle
             lastUpdate = std::chrono::system_clock::now();

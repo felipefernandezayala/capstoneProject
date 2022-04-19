@@ -27,6 +27,8 @@ public:
   int & getGridHeight(){return grid_height;}
   float & getSpeed(){return speed;}
   void setSpeed(float const & mySpeed){speed=mySpeed;}
+  void wrapAroundGrid(SDL_Point & cell);
+  void wrapAroundGrid(int & x, int & y);
 
 protected:
   int _id;          // every object has its own unique id
