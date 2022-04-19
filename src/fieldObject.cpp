@@ -1,12 +1,27 @@
 #include "fieldObject.h"
 
 std::mutex FieldObject::_mtx;
-int FieldObject::_idCnt = 0;
 
 FieldObject::FieldObject()
 {
-    _type = ObjectType::objectChicken; // all chickens otherwise stated
-    _id = _idCnt++;
+    setType( ObjectType::objectChicken); // all chickens otherwise stated
+}
+
+void FieldObject::initialize(int const &grid_widthV, int const &grid_heightV)
+{
+    setGridSize(grid_widthV, grid_heightV);
+    objectBody.resize(4);
+    objectBody.at(0).x = _id * getGridWidth() / 7;
+    objectBody.at(0).y = _id * getGridHeight() / 7;
+    objectBody.at(1).x = objectBody.at(0).x - 1;
+    objectBody.at(1).y = objectBody.at(0).y - 1;
+    objectBody.at(2).x = objectBody.at(0).x - 1;
+    objectBody.at(2).y = objectBody.at(0).y;
+    objectBody.at(3).x = objectBody.at(0).x;
+    objectBody.at(3).y = objectBody.at(0).y - 1;
+
+    egg.x = getGridWidth() / 2;
+    egg.y = getGridHeight() / 2;
 }
 
 FieldObject::~FieldObject()
@@ -30,6 +45,12 @@ void FieldObject::simulate()
      // launch drive function in a thread
     threads.emplace_back(std::thread(&FieldObject::doThings, this));
     
+}
+
+void FieldObject::wrapAroundGrid(SDL_Point & cell)
+{
+    cell.x = fmod(cell.x + getGridWidth(),  getGridWidth());
+    cell.y = fmod(cell.y + getGridHeight(), getGridHeight());
 }
 
 void FieldObject::moveAround()
@@ -64,8 +85,7 @@ void FieldObject::moveAround()
     {
         cell.x += dx;
         cell.y += dy;
-        cell.x = fmod(cell.x + grid_width, grid_width);
-        cell.y = fmod(cell.y + grid_height, grid_height);
+        wrapAroundGrid(cell);
     }
 }
 
@@ -83,8 +103,7 @@ void FieldObject::chaseSnake()
     {
         cell.x += dx;
         cell.y += dy;
-        cell.x = fmod(cell.x + grid_width, grid_width);
-        cell.y = fmod(cell.y + grid_height, grid_height);
+        wrapAroundGrid(cell);
     }
 }
 
@@ -121,7 +140,7 @@ void FieldObject::doThings()
     lck.unlock();
     
     // initalize variables
-    double cycleDuration = 10./static_cast<double>(speed); // duration of a single simulation cycle in ms
+    double cycleDuration = 10./static_cast<double>(getSpeed()); // duration of a single simulation cycle in ms
     std::chrono::time_point<std::chrono::system_clock> lastUpdate;
 
     // init stop watch
@@ -137,7 +156,7 @@ void FieldObject::doThings()
         long timeSinceLastUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - lastUpdate).count();
         if (timeSinceLastUpdate >= cycleDuration)
         {            
-            if (_type == ObjectType::objectChicken)
+            if (getType() == ObjectType::objectChicken)
             {
                 moveAround();
             }
