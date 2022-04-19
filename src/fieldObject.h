@@ -12,7 +12,6 @@
 #include <math.h>
 #include "SDL.h"
 #include "snake.h"
-#include "generalObject.h"
 
 enum ObjectType
 {
@@ -21,7 +20,7 @@ enum ObjectType
     objectChicken,
 };
 
-class FieldObject : public GeneralObject, public std::enable_shared_from_this<FieldObject>
+class FieldObject : public std::enable_shared_from_this<FieldObject>
 {
     public:
     // constructor / desctructor
@@ -78,7 +77,7 @@ protected:
     static std::mutex _mtx;                    // mutex shared by all objects for protecting cout
     std::vector<std::promise<void>> _promises; // list of associated promises
     std::condition_variable _cond;             // condition variable
-
+    int _id;          // every object has its own unique id
 private:
     // typical behaviour methods
     void doThings();
@@ -87,8 +86,8 @@ private:
     int grid_width;
     int grid_height;
     SDL_Point egg;
-
     std::shared_ptr<Snake> mySnake;
+    static int _idCnt; // global variable for counting object ids
 };
 
 #endif

@@ -1,10 +1,12 @@
 #include "fieldObject.h"
 
 std::mutex FieldObject::_mtx;
+int FieldObject::_idCnt = 0;
 
 FieldObject::FieldObject()
 {
     _type = ObjectType::objectChicken; // all chickens otherwise stated
+    _id = _idCnt++;
 }
 
 FieldObject::~FieldObject()

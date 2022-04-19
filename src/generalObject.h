@@ -17,7 +17,7 @@ protected:
   int _id;          // every object has its own unique id
 
 private:
-  static int _idCnt; // global variable for counting object ids
+  
 };
 
 #endif

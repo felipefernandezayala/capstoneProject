@@ -6,7 +6,6 @@
 #include <mutex>
 #include <future>
 #include "SDL.h"
-#include "generalObject.h"
 
 class Snake : public std::enable_shared_from_this<Snake>
 {
