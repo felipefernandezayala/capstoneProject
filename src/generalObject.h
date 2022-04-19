@@ -21,6 +21,9 @@ class GeneralObject
 {
 public:
   GeneralObject();
+  GeneralObject(int grid_widthV, int grid_heightV)
+      : grid_width(grid_widthV),
+        grid_height(grid_heightV){};
   ~GeneralObject();
   int getID() { return _id; }
   ObjectType & getType(){return _type;}
@@ -31,6 +34,7 @@ public:
   float & getSpeed(){return speed;}
   void setSpeed(float const & mySpeed){speed=mySpeed;}
   void wrapAroundGrid(SDL_Point & cell);
+  void increaseSpeed(float const & increment){speed=speed+increment;};
 
   template <class myTemplateType>
   void wrapAroundGrid(myTemplateType & x, myTemplateType & y)

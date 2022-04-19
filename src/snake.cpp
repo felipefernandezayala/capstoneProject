@@ -9,8 +9,8 @@ Snake::Snake()
 {
   head_x = 0;
   head_y = 0;
-  grid_width = 0;
-  grid_height =0;
+  setGridSize(0,0);
+  setSpeed(0.1f);
 }
 
 void Snake::Update(std::vector<SDL_Point> const &items)
@@ -37,25 +37,24 @@ void Snake::UpdateHead()
   switch (direction)
   {
   case Direction::kUp:
-    head_y -= speed;
+    head_y -= getSpeed();
     break;
 
   case Direction::kDown:
-    head_y += speed;
+    head_y += getSpeed();
     break;
 
   case Direction::kLeft:
-    head_x -= speed;
+    head_x -= getSpeed();
     break;
 
   case Direction::kRight:
-    head_x += speed;
+    head_x += getSpeed();
     break;
   }
 
   // Wrap the Snake around to the beginning if going off of the screen.
-  head_x = fmod(head_x + grid_width, grid_width);
-  head_y = fmod(head_y + grid_height, grid_height);
+  wrapAroundGrid(head_x,head_y);
 }
 
 void Snake::checkIsAliveWithOwnBody(SDL_Point const &myCell)

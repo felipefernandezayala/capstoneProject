@@ -149,7 +149,7 @@ void Game::Update()
     //PlaceItems();
     // Grow mySnake and increase speed.
     mySnake->GrowBody();
-    mySnake->speed += 0.005;
+    mySnake->increaseSpeed( 0.005);
   }
 }
 
