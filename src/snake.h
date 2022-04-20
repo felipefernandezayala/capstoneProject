@@ -73,8 +73,8 @@ private:
   std::vector<SDL_Point> body;
   int size{1};
   Direction direction = Direction::kUp;
-  float head_x;
-  float head_y;
+  float head_x{0};
+  float head_y{0};
   bool alive{true};
   void UpdateHead();
   void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell, std::vector<SDL_Point> const &items);

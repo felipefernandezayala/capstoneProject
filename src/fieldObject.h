@@ -10,6 +10,7 @@
 #include <future>
 #include <queue>
 #include <math.h>
+#include <random>
 #include "SDL.h"
 #include "generalObject.h"
 #include "snake.h"
@@ -41,6 +42,7 @@ private:
     // variables needed
     SDL_Point egg;
     std::shared_ptr<Snake> mySnake;
+    
 };
 
 #endif

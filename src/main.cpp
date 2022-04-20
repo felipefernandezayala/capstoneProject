@@ -4,7 +4,6 @@
 #include <future>
 #include <mutex>
 
-
 #include "controller.h"
 #include "game.h"
 #include "renderer.h"
@@ -42,15 +41,14 @@ int main()
     Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
     Controller controller;
     Game game(kGridWidth, kGridHeight, myObjects, mySnake);
-    //game.setFieldObjects(myObjects);
-    //game.setSnake(mySnake);
+    
     game.Run(controller, renderer, kMsPerFrame);
+    
     std::cout << "Game has terminated successfully!\n";
     std::cout << "Score: " << game.GetScore() << "\n";
     std::cout << "Size: " << game.GetSize() << "\n";
     game.writeScoresToFile();
-    
-    
+        
     return 0;
 }
 

@@ -9,10 +9,16 @@ FieldObject::FieldObject()
 
 void FieldObject::initialize(int const &grid_widthV, int const &grid_heightV)
 {
+    std::random_device dev;
+    std::mt19937 engine(dev());
+    std::uniform_int_distribution<> random_w(0, static_cast<int>(grid_widthV - 1));
+    std::uniform_int_distribution<> random_h(0, static_cast<int>(grid_heightV - 1));
+    
     setGridSize(grid_widthV, grid_heightV);
     objectBody.resize(4);
-    objectBody.at(0).x = _id * getGridWidth() / 7;
-    objectBody.at(0).y = _id * getGridHeight() / 7;
+
+    objectBody.at(0).x = random_w(engine); 
+    objectBody.at(0).y = random_h(engine); 
     objectBody.at(1).x = objectBody.at(0).x - 1;
     objectBody.at(1).y = objectBody.at(0).y - 1;
     objectBody.at(2).x = objectBody.at(0).x - 1;

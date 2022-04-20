@@ -16,8 +16,8 @@ Game::Game(std::size_t grid_width, std::size_t grid_height, std::vector<std::sha
       random_h(0, static_cast<int>(grid_height - 1))
 {
   areFieldObjectsLoaded = false;
-  setFieldObjects(theObjects);
   setSnake(theSnake);
+  setFieldObjects(theObjects);
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
