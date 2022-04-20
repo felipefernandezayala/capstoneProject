@@ -33,8 +33,6 @@ public:
 protected:
     std::vector<std::thread> threads;          // holds all threads that have been launched within this object
     static std::mutex _mtx;                    // mutex shared by all objects for protecting cout
-    std::vector<std::promise<void>> _promises; // list of associated promises
-    std::condition_variable _cond;             // condition variable
 private:
     // typical behaviour methods
     void eternalCycle();

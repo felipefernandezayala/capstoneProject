@@ -62,8 +62,8 @@ void FieldObject::saveEgg()
     // check on the snake
     if (deltaZ<Radius)
     {
-        deltaX = mySnake->head_x - static_cast<float>(objectBody.at(0).x);
-        deltaY = mySnake->head_y - static_cast<float>(objectBody.at(0).y);
+        deltaX = mySnake->getHeadX() - static_cast<float>(objectBody.at(0).x);
+        deltaY = mySnake->getHeadY() - static_cast<float>(objectBody.at(0).y);
         deltaZ = sqrt(deltaX*deltaX + deltaY*deltaY);
 
         if (deltaZ < 2*Radius)
@@ -85,8 +85,8 @@ void FieldObject::saveEgg()
 
 void FieldObject::chaseSnake()
 {
-    float deltaX = mySnake->head_x - static_cast<float>(objectBody.at(0).x);
-    float deltaY = mySnake->head_y - static_cast<float>(objectBody.at(0).y);
+    float deltaX = mySnake->getHeadX() - static_cast<float>(objectBody.at(0).x);
+    float deltaY = mySnake->getHeadY() - static_cast<float>(objectBody.at(0).y);
     float deltaZ = sqrt(deltaX*deltaX + deltaY*deltaY);
 
     int dx = static_cast<int>(2.*deltaX/deltaZ);
@@ -111,8 +111,8 @@ void FieldObject::isSnakeCaught()
         mySnake->checkIsAliveWithOwnBody(cell);
 
         // check with head
-        if(static_cast<int>(mySnake->head_x)==cell.x && static_cast<int>(mySnake->head_y)==cell.y)
-            mySnake->alive = false;
+        if(static_cast<int>(mySnake->getHeadX())==cell.x && static_cast<int>(mySnake->getHeadY())==cell.y)
+            mySnake->snakeIsDead();
 
     }
 }
@@ -141,7 +141,7 @@ void FieldObject::eternalCycle()
     lastUpdate = std::chrono::system_clock::now();
     
     
-    while (mySnake->alive)
+    while (mySnake->isAlive())
     {
         // sleep at every iteration to reduce CPU usage
         std::this_thread::sleep_for(std::chrono::milliseconds(1));

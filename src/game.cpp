@@ -53,7 +53,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     }
   }
 
-  mySnake->alive = false; // kill snake so the other field object threads stop
+  mySnake->snakeIsDead(); // kill snake so the other field object threads stop
 }
 
 void Game::PlaceFood()
@@ -126,7 +126,7 @@ void Game::writeScoresToFile()
 
 void Game::Update()
 {
-  if (!mySnake->alive)
+  if (!mySnake->isAlive())
   {
     return;
   }
@@ -138,8 +138,8 @@ void Game::Update()
   thread_2.join();
   thread_1.join();
 
-  int new_x = static_cast<int>(mySnake->head_x);
-  int new_y = static_cast<int>(mySnake->head_y);
+  int new_x = static_cast<int>(mySnake->getHeadX());
+  int new_y = static_cast<int>(mySnake->getHeadY());
 
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y)
@@ -154,4 +154,4 @@ void Game::Update()
 }
 
 int Game::GetScore() const { return score; }
-int Game::GetSize() const { return mySnake->size; }
+int Game::GetSize() const { return mySnake->getSize(); }

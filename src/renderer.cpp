@@ -81,7 +81,7 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
 
   // Render snake's body
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0xCC, 0x00, 0xFF);
-  for (SDL_Point const &point : mySnake->body)
+  for (SDL_Point const &point : mySnake->getBody())
   {
     block.x = point.x * block.w;
     block.y = point.y * block.h;
@@ -89,9 +89,9 @@ void Renderer::Render(SDL_Point const &food, std::vector<SDL_Point> const &items
   }
 
   // Render my snake's head
-  block.x = static_cast<int>(mySnake->head_x) * block.w;
-  block.y = static_cast<int>(mySnake->head_y) * block.h;
-  if (mySnake->alive)
+  block.x = static_cast<int>(mySnake->getHeadX()) * block.w;
+  block.y = static_cast<int>(mySnake->getHeadY()) * block.h;
+  if (mySnake->isAlive())
   {
     SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
   }

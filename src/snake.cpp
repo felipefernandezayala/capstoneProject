@@ -2,8 +2,6 @@
 #include <cmath>
 #include <iostream>
 
-std::mutex Snake::_mtx;
-
 
 Snake::Snake()
 {
