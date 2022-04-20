@@ -77,11 +77,11 @@ This work is licensed under a
   * Virtual class member function simulate() is defined in parent class GeneralObject and implemented in children differently
   * Template is used in GeneralObject::wrapAroundGrid(myTemplateType & x, myTemplateType & y) for more general wrapAround that may take coordinates as int of float since we use it for snake head that is a float in Snake::UpdateHead() but the bodies are stored as vectors of SDL_Point that uses ints
 * Memory mangement
- * references - most functions receved arguments by reference
- * destructors are used approiately and memory allocated is returned indirectly by classes and threads are join as well.
+ * References - most functions receved arguments by reference
+ * Destructors are used approiately and memory allocated is returned indirectly by classes and threads are join as well.
  * RAII is used a much as possible. Snake and fieldObjects are created on the heap at run time.
  * Rule of 5 is implemented on father class generalObject.
- * move semantics is used to pass promise as std::move(prms) in Snake::SnakeCell(int x, int y)
+ * Move semantics is used to pass promise as std::move(prms) in Snake::SnakeCell(int x, int y)
  * Smart pointers are used for Snake and Field Objects.
 * Concurrency
   * Multithreading - Many functions in the code are run in parallel. For Example, all field objects (Chickens) are independent and run in parallel, cf. FieldObject::simulate(). In subroutine Game::Update, two subroutines run in parallel as well, i.e., Game::updateSnake and Game::updateFieldObjects.
