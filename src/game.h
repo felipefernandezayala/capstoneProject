@@ -25,6 +25,7 @@ class Game
 
 public:
   Game(std::size_t grid_width, std::size_t grid_height);
+  Game(std::size_t grid_width, std::size_t grid_height, std::vector<std::shared_ptr<FieldObject>> &theObjects, std::shared_ptr<Snake> &theSnake);
   void updateFieldObjects();
   bool isDataLoaded()
   {

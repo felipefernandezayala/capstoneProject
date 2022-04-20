@@ -24,7 +24,7 @@ int main()
     // create snake
     std::shared_ptr<Snake> mySnake(new Snake(kGridWidth, kGridHeight));
 
-    // add independent object
+    // add independent objects
     for (int newObj = 0; newObj < nObjects; newObj++)
     {
         myObjects.push_back(std::make_shared<FieldObject>());
@@ -41,9 +41,9 @@ int main()
        
     Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
     Controller controller;
-    Game game(kGridWidth, kGridHeight);
-    game.setFieldObjects(myObjects);
-    game.setSnake(mySnake);
+    Game game(kGridWidth, kGridHeight, myObjects, mySnake);
+    //game.setFieldObjects(myObjects);
+    //game.setSnake(mySnake);
     game.Run(controller, renderer, kMsPerFrame);
     std::cout << "Game has terminated successfully!\n";
     std::cout << "Score: " << game.GetScore() << "\n";

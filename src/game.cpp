@@ -10,6 +10,16 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
   areFieldObjectsLoaded = false;
 }
 
+Game::Game(std::size_t grid_width, std::size_t grid_height, std::vector<std::shared_ptr<FieldObject>> &theObjects, std::shared_ptr<Snake> &theSnake)
+    : engine(dev()),
+      random_w(0, static_cast<int>(grid_width - 1)),
+      random_h(0, static_cast<int>(grid_height - 1))
+{
+  areFieldObjectsLoaded = false;
+  setFieldObjects(theObjects);
+  setSnake(theSnake);
+}
+
 void Game::Run(Controller const &controller, Renderer &renderer,
                std::size_t target_frame_duration)
 {
